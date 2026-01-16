@@ -3,13 +3,389 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeba Tarannum | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Zeba Tarannum - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 20% 50%, rgba(88, 166, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(156, 100, 255, 0.15) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-50px, -50px); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #58a6ff, #9c64ff);
+            transition: width 0.3s;
+        }
+
+        nav a:hover {
+            color: #58a6ff;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #58a6ff 0%, #9c64ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: #8892b0;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #58a6ff 0%, #9c64ff 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            box-shadow: 0 10px 30px rgba(88, 166, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(88, 166, 255, 0.4);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* About Section */
+        .section {
+            min-height: 100vh;
+            padding: 6rem 10%;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, #58a6ff, #9c64ff);
+            border-radius: 2px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #8892b0;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            background: rgba(88, 166, 255, 0.1);
+            border-color: rgba(88, 166, 255, 0.3);
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #58a6ff;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #58a6ff, #9c64ff);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(88, 166, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .project-card p {
+            color: #8892b0;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            padding: 0.4rem 1rem;
+            background: rgba(88, 166, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #58a6ff;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            font-size: 1.3rem;
+            color: #8892b0;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            font-size: 1.5rem;
+        }
+
+        .contact-link:hover {
+            background: linear-gradient(135deg, #58a6ff, #9c64ff);
+            border-color: transparent;
+            transform: translateY(-5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section {
+                padding: 4rem 5%;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            nav a {
+                font-size: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="bg-animation"></div>
 
-    <!-- Navigation -->
     <nav>
         <ul>
             <li><a href="#about">About</a></li>
@@ -19,89 +395,97 @@
         </ul>
     </nav>
 
-    <!-- Hero -->
-    <header class="hero">
-        <h1>Zeba Tarannum</h1>
-        <p>Junior Front-End Web Developer | MCA Student</p>
-    </header>
-
-    <!-- About -->
-    <section id="about">
-        <h2>About Me</h2>
-        <p>
-            I am an MCA student with a strong interest in front-end web development.
-            I am currently learning and building websites using HTML, CSS, and basic JavaScript.
-            I enjoy creating clean, user-friendly web pages and continuously improving my skills
-            through hands-on practice and small projects.
-        </p>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills">
-        <h2>Skills</h2>
-        <ul>
-            <li>HTML5 – Semantic structure, forms, layouts</li>
-            <li>CSS3 – Styling, layouts, basic responsiveness</li>
-            <li>JavaScript – Basics, DOM manipulation (learning)</li>
-            <li>Power BI – Dashboards, data visualization</li>
-            <li>MS Excel – Data analysis, formulas</li>
-            <li>C, Java – Programming fundamentals</li>
-        </ul>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects">
-        <h2>Projects</h2>
-
-        <div class="project-card">
-            <h3>Personal Portfolio Website</h3>
-            <p>
-                Designed and developed a personal portfolio website using HTML and CSS
-                to showcase skills, projects, and contact information.
-            </p>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Zeba Tarannum</h1>
+            <p class="subtitle">Junior Front-End Web Developer | MCA Student</p>
+            <a href="#contact" class="cta-button">Get In Touch</a>
         </div>
-
-        <div class="project-card">
-            <h3>Simple Business Website</h3>
-            <p>
-                Created a static front-end website for a small service-based business
-                using HTML and CSS with a clean and readable layout.
-            </p>
+        <div class="scroll-indicator">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2">
+                <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
         </div>
-
-        <div class="project-card">
-    <h3>Personal Portfolio Website</h3>
-
-    <img src="images/portfolio.png" alt="Portfolio Website Screenshot">
-
-    <p>
-        Designed and developed a personal portfolio website using HTML and CSS
-        to showcase skills, projects, and contact information.
-    </p>
-    <p>
-    <a href="https://github.com/yourusername/portfolio-website" target="_blank">
-        🔗 View Code on GitHub
-    </a>
-</p>
-
-</div>
-
     </section>
 
-    <!-- Contact -->
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:yourrealemail@gmail.com">zebatarannum1234@gmail.com</a></p>
-        <p>Location: Hyderabad, Telangana, India</p>
-        <p>LinkedIn: <a href="https://linkedin.com/in/zebatarannum" target="_blank">linkedin.com/in/zebatarannum</a></p>
-        <p>GitHub: <a href="https://github.com/zebatarannum" target="_blank">github.com/zebatarannum</a></p>
+    <section id="about" class="section">
+        <div class="section-content">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>I am an MCA student with a strong interest in front-end web development. I am currently learning and building websites using HTML, CSS, and basic JavaScript. I enjoy creating clean, user-friendly web pages and continuously improving my skills through hands-on practice and small projects.</p>
+                    <br>
+                    <p>My passion lies in crafting intuitive user experiences and bringing creative designs to life through code. I'm always eager to learn new technologies and best practices in web development.</p>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h3>HTML5</h3>
+                        <p>Semantic markup & structure</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>CSS3</h3>
+                        <p>Modern styling & animations</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>JavaScript</h3>
+                        <p>Interactive functionality</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Responsive Design</h3>
+                        <p>Mobile-first approach</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Zeba Tarannum | Built with HTML & CSS</p>
-    </footer>
+    <section id="projects" class="section">
+        <div class="section-content">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>Portfolio Website</h3>
+                    <p>A personal portfolio showcasing my skills and projects with modern design and smooth animations.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>Responsive Landing Page</h3>
+                    <p>A fully responsive landing page with engaging visuals and optimized performance across all devices.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <h3>Interactive Web Form</h3>
+                    <p>User-friendly form with validation and dynamic feedback for enhanced user experience.</p>
+                    <div class="tech-tags">
+                        <span class="tech-tag">HTML</span>
+                        <span class="tech-tag">CSS</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section id="contact" class="section">
+        <div class="section-content">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <p>I'm currently looking for new opportunities and my inbox is always open. Whether you have a question or just want to say hi, I'll do my best to get back to you!</p>
+                <a href="mailto:zeba@example.com" class="cta-button">Say Hello</a>
+                <div class="contact-links">
+                    <a href="#" class="contact-link">💼</a>
+                    <a href="#" class="contact-link">📧</a>
+                    <a href="#" class="contact-link">🔗</a>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
 </html>
-
